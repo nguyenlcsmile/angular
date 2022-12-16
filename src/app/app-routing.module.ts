@@ -6,7 +6,7 @@ import { ViewUserComponent } from './components/users/manager-users/view-user/vi
 import { UsersComponent } from './components/users/users.component';
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
+  {path: '', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'users', component: UsersComponent, children: [
     // {path: ':id', component: ViewUserComponent}
