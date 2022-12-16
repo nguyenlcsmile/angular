@@ -1,0 +1,42 @@
+<ng-template #template let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+        <div class="card-body">
+            <form class="row g-3">
+                <div class="col-md-6">
+                    <label for="inputEmail4" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="inputEmail4">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputEmail4" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputCountry" class="form-label">Country</label>
+                    <input type="text" class="form-control" id="inputCountry">
+                </div>
+                <div class="col-md-6">
+                    <label for="inputGender" class="form-label">Gender</label>
+                    <select id="inputGender" class="form-select">
+                        <option selected>Male</option>
+                        <option>Female</option>
+                    </select>
+                </div>
+                <div class="col-md-12">
+                    <label for="inputPhone" class="form-label">Phone</label>
+                    <input type="text" class="form-control" id="inputPhone">
+                </div>
+                <div class="col-md-12">
+                    <label for="inputImage" class="form-label">Image</label>
+                    <input type="file" class="form-control" id="inputImage">
+                </div>
+              </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark px-4" (click)="c('Cross click')">Close</button>
+    </div>
+</ng-template>
