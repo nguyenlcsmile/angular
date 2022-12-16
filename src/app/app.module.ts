@@ -9,6 +9,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { UsersComponent } from './components/users/users.component';
 import { ViewUserComponent } from './components/users/manager-users/view-user/view-user.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UpdateUserComponent } from './components/users/manager-users/update-user/update-user.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     LoginComponent,
     ForgotPasswordComponent,
     UsersComponent,
-    ViewUserComponent
+    ViewUserComponent,
+    UpdateUserComponent
   ],
   imports: [
     BrowserModule,
