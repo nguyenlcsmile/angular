@@ -10,6 +10,7 @@ import { UsersComponent } from './components/users/users.component';
 import { ViewUserComponent } from './components/users/manager-users/view-user/view-user.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateUserComponent } from './components/users/manager-users/update-user/update-user.component';
+import { SafePipe } from './safe.pipe';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { UpdateUserComponent } from './components/users/manager-users/update-use
     ForgotPasswordComponent,
     UsersComponent,
     ViewUserComponent,
-    UpdateUserComponent
+    UpdateUserComponent,
+    SafePipe
   ],
   imports: [
     BrowserModule,
