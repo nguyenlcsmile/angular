@@ -26,7 +26,7 @@ export class UpdateUserComponent implements OnInit {
     constructor(
         config: NgbModalConfig,
         private modalService: NgbModal,
-        private sanitizer: DomSanitizer) { }
+        private sanitizer: DomSanitizer,) { }
 
     ngOnInit(): void { }
 
@@ -45,11 +45,24 @@ export class UpdateUserComponent implements OnInit {
         }
     }
 
+    getBase64(file) {
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        return reader;
+    }
+
     handleUploadImage(event) {
         if (event.target && event.target.files && event.target.files[0]) {
             this.previewImage = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(event.target.files[0]));
-            console.log(this.previewImage, typeof this.previewImage);
-            // this.previewImage = url.changingThisBreaksApplicationSecurity;
+            let imageFile = event.target.files[0];
+            let reader = this.getBase64(imageFile);
+            reader.onload = () => {
+                let imageBase64 = String(reader.result).replace(/^data:image\/[a-z]+;base64,/, "");
+                this.user.image = imageBase64;
+            };
+            reader.onerror = (error) => {
+                console.log('Error: ', error);
+            };
         }
     }
 

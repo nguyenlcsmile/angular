@@ -6,34 +6,52 @@
                     <div class="card-header">
                         <h2 class="card-title">List users</h2>
                     </div>
-                    <table class="table table-bordered align-middle">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Gender</th>
-                                <th>Country</th>
-                                <th>Phone</th>
-                                <th style="width: 20%;">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>864-348-0485</td>
-                                <td>864-348-0485</td>
-                                <td>Female</td>
-                                <td>864-348-0485</td>
-                                <td>864-348-0485</td>
-                                <td>
-                                    <button class="btn btn-primary" (click)="showModalView()">View</button>
-                                    <button class="btn btn-warning mx-2 m-2" (click)="showModalUpdate()">Edit</button>
-                                    <button class="btn btn-danger">Delete</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="card-body">
+                        <table class="table table-bordered align-middle">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Gender</th>
+                                    <th>Country</th>
+                                    <th>Phone</th>
+                                    <th style="width: 20%;">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let user of users | paginate: { itemsPerPage: 2, currentPage: currnetPage }">
+                                    <td>{{user.id}}</td>
+                                    <td>{{user.username}}</td>
+                                    <td>{{user.email}}</td>
+                                    <td>{{user.gender}}</td>
+                                    <td>{{user.country}}</td>
+                                    <td>{{user.phone}}</td>
+                                    <td>
+                                        <button class="btn btn-primary" (click)="showModalView()">View</button>
+                                        <button class="btn btn-warning mx-2 m-2" (click)="showModalUpdate()">Edit</button>
+                                        <button class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-center mt-4">
+                            <pagination-controls
+                                (pageChange)="handlePanginate($event)"
+                                (pageBoundsCorrection)="handlePanginate($event)"
+                                maxSize="20"
+                                directionLinks="true"
+                                autoHide="true"
+                                responsive="true"
+                                previousLabel="Previous"
+                                nextLabel="Next"
+                                screenReaderPaginationLabel="Pagination"
+                                screenReaderPageLabel="page"
+                                screenReaderCurrentLabel="You're on page">
+                            </pagination-controls>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>

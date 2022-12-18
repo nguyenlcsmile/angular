@@ -11,6 +11,7 @@ import { ViewUserComponent } from './components/users/manager-users/view-user/vi
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UpdateUserComponent } from './components/users/manager-users/update-user/update-user.component';
 import { SafePipe } from './safe.pipe';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SafePipe } from './safe.pipe';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]
