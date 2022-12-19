@@ -2,6 +2,9 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ViewUserComponent } from './manager-users/view-user/view-user.component';
 import { UpdateUserComponent } from './manager-users/update-user/update-user.component';
+// import { Observable } from 'rxjs';
+// import { Store } from '@ngrx/store';
+// import { increment } from 'src/ngrx/counter.actions';
 
 @Component({
     selector: 'app-users',
@@ -13,6 +16,7 @@ export class UsersComponent implements OnInit {
     @ViewChild(ViewUserComponent) viewUser!: ViewUserComponent;
     @ViewChild(UpdateUserComponent) updateUser!: UpdateUserComponent;
 
+    // count$: Observable<number>;
     collection = [];
     users = [
         {
@@ -58,11 +62,11 @@ export class UsersComponent implements OnInit {
     ]
     currnetPage = 1;
 
-    constructor(config: NgbModalConfig, private modalService: NgbModal) {
-        for (let i = 1; i <= 100; i++) {
-            this.collection.push(`item ${i}`);
-        }
-    }
+    constructor(
+        config: NgbModalConfig, 
+        private modalService: NgbModal,
+        // private store: Store<{ count: number }>
+    ) {}
 
     ngOnInit(): void { }
 
@@ -77,5 +81,9 @@ export class UsersComponent implements OnInit {
     handlePanginate(event) {
         this.currnetPage = event;
     }
+
+    // increment() {
+    //   this.store.dispatch(increment());
+    // }
 }
 

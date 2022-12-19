@@ -11,7 +11,7 @@ const routes: Routes = [
   {path: 'users', component: UsersComponent, children: [
     // {path: ':id', component: ViewUserComponent}
   ]},
-  {path: 'detail', component: ViewUserComponent}
+  {path: 'detail', component: ViewUserComponent},
 ];
 
 @NgModule({

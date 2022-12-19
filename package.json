@@ -24,12 +24,14 @@
     "bootstrap": "^5.2.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "@ngrx/store": "^15.0.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^14.2.0",
-    "@angular/cli": "~14.2.0",
+    "@angular/cli": "^12.0.0",
     "@angular/compiler-cli": "^14.0.0-next.0",
+    "@ngrx/store": "^15.0.0",
     "@types/jasmine": "~4.0.0",
     "bootstrap": "^5.2.3",
     "jasmine-core": "~4.3.0",
