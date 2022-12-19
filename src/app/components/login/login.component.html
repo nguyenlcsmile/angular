@@ -13,16 +13,27 @@
                                 <form>
                                     <div class="mb-3">
                                         <label class="form-label">Email</label>
-                                        <input class="form-control" type="email" name="email" placeholder="Enter your email" [(ngModel)]="email">
+                                        <input class="form-control {{account.email.isValid ? 'is-invalid' : ''}}" 
+                                            type="email" name="email" placeholder="Enter your email" 
+                                            [(ngModel)]="account.email.value">
+                                        <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                            {{messageEmail}}
+                                        </div>
                                     </div>
                             
                                     <div class="mb-3">
                                         <label class="form-label">Password</label>
-                                        <div class="input-pass">
-                                            <input class="form-control" type="{{showPass ? 'text' : 'password'}}" name="password" placeholder="Enter your password" [(ngModel)]="password">
-                                            <span>
+                                        <div class="input-group">
+                                            <input class="form-control {{account.password.isValid ? 'is-invalid' : ''}}" 
+                                                type="{{showPass ? 'text' : 'password'}}" 
+                                                name="password" placeholder="Enter your password" 
+                                                [(ngModel)]="account.password.value">
+                                            <button type="button" class="btn btn-primary">
                                                 <i class="show-pass {{showPass ? 'fa-regular fa-eye' : 'fa-regular fa-eye-slash'}}" (click)="showPassword()"></i>
-                                            </span>
+                                            </button>
+                                            <div id="validationServerUsernameFeedback" class="invalid-feedback">
+                                                Please ennter password.
+                                            </div>
                                         </div>
                                     </div>
                                     <small class="mt-1">
