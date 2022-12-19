@@ -13,8 +13,8 @@ import { UpdateUserComponent } from './components/users/manager-users/update-use
 import { SafePipe } from './safe.pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 
-// import { StoreModule } from '@ngrx/store';
-// import { counterReducer } from './ngrx/counter.reducer';
+import { StoreModule } from '@ngrx/store';
+import { getUserReducer } from './ngrx/user.reducer';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormsModule,
     NgbModule,
     NgxPaginationModule,
-    // StoreModule.forRoot({ count: counterReducer })
+    StoreModule.forRoot({ user: getUserReducer })
   ],
   providers: [],
   bootstrap: [AppComponent]

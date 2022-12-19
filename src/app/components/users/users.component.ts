@@ -2,9 +2,9 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ViewUserComponent } from './manager-users/view-user/view-user.component';
 import { UpdateUserComponent } from './manager-users/update-user/update-user.component';
-// import { Observable } from 'rxjs';
-// import { Store } from '@ngrx/store';
-// import { increment } from 'src/ngrx/counter.actions';
+import { Store, State  } from '@ngrx/store';
+import { getUser } from 'src/app/ngrx/user.actions';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'app-users',
@@ -12,11 +12,12 @@ import { UpdateUserComponent } from './manager-users/update-user/update-user.com
     styleUrls: ['./users.component.scss'],
     providers: [NgbModalConfig, NgbModal],
 })
+
 export class UsersComponent implements OnInit {
     @ViewChild(ViewUserComponent) viewUser!: ViewUserComponent;
     @ViewChild(UpdateUserComponent) updateUser!: UpdateUserComponent;
 
-    // count$: Observable<number>;
+    count$: Observable<number>;
     collection = [];
     users = [
         {
@@ -65,10 +66,16 @@ export class UsersComponent implements OnInit {
     constructor(
         config: NgbModalConfig, 
         private modalService: NgbModal,
-        // private store: Store<{ count: number }>
-    ) {}
+        private store: Store<{ user: any }>,
+        private state: State<{}>
+    ) { }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {}
+    
+    ngAfterViewInit() {
+        let user = this.getUserLogin();
+        console.log(user);
+    }
 
     showModalView() {
         this.viewUser.showModal();
@@ -82,8 +89,9 @@ export class UsersComponent implements OnInit {
         this.currnetPage = event;
     }
 
-    // increment() {
-    //   this.store.dispatch(increment());
-    // }
+    getUserLogin() {
+        this.store.dispatch(getUser());
+        return this.state.value;
+    }
 }
 
