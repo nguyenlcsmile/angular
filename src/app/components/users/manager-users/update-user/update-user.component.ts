@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
 import { DomSanitizer } from "@angular/platform-browser";
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { User } from './user-information';
+import { RestApiService } from 'src/app/shared/rest-api.service';
 
 @Component({
     selector: 'app-update-user',
@@ -12,36 +12,43 @@ import { User } from './user-information';
 
 export class UpdateUserComponent implements OnInit {
     previewImage = null;
-    user: User = {
-        username: '',
-        email: '',
-        gender: '',
-        country: '',
-        phone: '',
-        image: ''
-    };
+    user: {};
 
     @ViewChild('template') template!: ElementRef;
 
     constructor(
         config: NgbModalConfig,
         private modalService: NgbModal,
-        private sanitizer: DomSanitizer,) { }
+        private sanitizer: DomSanitizer,
+        public restApi: RestApiService
+    ) { }
 
     ngOnInit(): void { }
 
-    showModal() {
+    showModal(user) {
+        this.user = user;
+        this.previewImage = `data:image/jpeg;base64,${user.imagebase64.S}`;
         return this.modalService.open(this.template, { size: 'xl', backdrop: 'static' });
     }
 
     resetUserUpdate() {
+        this.previewImage = ''
         this.user = {
-            username: '',
-            email: '',
-            gender: '',
-            country: '',
-            phone: '',
-            image: ''
+            country: {
+                S: ''
+            },
+            email: {
+                S: ''
+            },
+            gender: {
+                S: ''
+            },
+            phone: {
+                S: ''
+            },
+            username: {
+                S: ''
+            }
         }
     }
 
@@ -58,7 +65,7 @@ export class UpdateUserComponent implements OnInit {
             let reader = this.getBase64(imageFile);
             reader.onload = () => {
                 let imageBase64 = String(reader.result).replace(/^data:image\/[a-z]+;base64,/, "");
-                this.user.image = imageBase64;
+                this.user['imagebase64'].S = imageBase64;
             };
             reader.onerror = (error) => {
                 console.log('Error: ', error);
@@ -67,7 +74,7 @@ export class UpdateUserComponent implements OnInit {
     }
 
     handleUpdateUser() {
-        console.log(this.user);
+        // console.log(this.user);
         this.resetUserUpdate();
     }
 

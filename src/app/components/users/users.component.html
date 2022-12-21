@@ -30,16 +30,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let user of users | paginate: { itemsPerPage: 2, currentPage: currnetPage }">
-                                    <td>{{user.id}}</td>
-                                    <td>{{user.username}}</td>
-                                    <td>{{user.email}}</td>
-                                    <td>{{user.gender}}</td>
-                                    <td>{{user.country}}</td>
-                                    <td>{{user.phone}}</td>
+                                <tr *ngFor="let user of users | paginate: { itemsPerPage: 5, currentPage: currnetPage }">
+                                    <td>{{user.id.S}}</td>
+                                    <td>{{user.username.S}}</td>
+                                    <td>{{user.email.S}}</td>
+                                    <td>{{user.gender.S}}</td>
+                                    <td>{{user.country.S}}</td>
+                                    <td>{{user.phone.S}}</td>
                                     <td>
-                                        <button class="btn btn-primary" (click)="showModalView()">View</button>
-                                        <button class="btn btn-warning mx-2 m-2" (click)="showModalUpdate()">Edit</button>
+                                        <button class="btn btn-primary" (click)="showModalView(user)">View</button>
+                                        <button class="btn btn-warning mx-2 m-2" (click)="showModalUpdate(user)">Edit</button>
                                         <button class="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>

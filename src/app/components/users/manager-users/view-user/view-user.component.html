@@ -12,18 +12,18 @@
                             <h5 class="card-title mb-0">Profile Details</h5>
                         </div>
                         <div class="card-body text-center">
-                            <img src="img/avatars/avatar-4.jpg" alt="Avatar" class="img-fluid rounded-circle mb-2" width="128" height="128">
-                            <h5 class="card-title mb-0">Username</h5>
+                            <img [src]="image" alt="Avatar" class="img-fluid rounded-circle mb-2" width="128" height="128">
+                            <h5 class="card-title mb-0">{{userView.username.S}}</h5>
                         </div>
                         <hr class="my-0">
                         <hr class="my-0">
                         <div class="card-body">
                             <h5 class="h6 card-title">About</h5>
                             <ul class="list-unstyled mb-0">
-                                <li class="mb-1"><span data-feather="home" class="feather-sm me-1"></span> Email: nguyencaole@gmail.com</li>
-                                <li class="mb-1"><span data-feather="briefcase" class="feather-sm me-1"></span> Country: Vietnam</li>
-                                <li class="mb-1"><span data-feather="map-pin" class="feather-sm me-1"></span> Phone: 0123456789</li>
-                                <li class="mb-1"><span data-feather="map-pin" class="feather-sm me-1"></span> Gender: Female</li>
+                                <li class="mb-1"><span data-feather="home" class="feather-sm me-1"></span> Email: {{userView.email.S}}</li>
+                                <li class="mb-1"><span data-feather="briefcase" class="feather-sm me-1"></span> Country: {{userView.country.S}}</li>
+                                <li class="mb-1"><span data-feather="map-pin" class="feather-sm me-1"></span> Phone: {{userView.phone.S}}</li>
+                                <li class="mb-1"><span data-feather="map-pin" class="feather-sm me-1"></span> Gender: {{userView.gender.S}}</li>
                             </ul>
                         </div>
                         <hr class="my-0">
@@ -37,7 +37,7 @@
                         </div>
                         <div class="card-body h-100">
                             <div class="d-flex align-items-start">
-                                <img src="img/avatars/avatar-5.jpg" width="36" height="36" class="rounded-circle me-2" alt="Vanessa Tucker">
+                                <img src="" width="36" height="36" class="rounded-circle me-2" alt="Vanessa Tucker">
                                 <div class="flex-grow-1">
                                     <small class="float-end text-navy">5m ago</small>
                                     <strong>Vanessa Tucker</strong> started following <strong>Christina Mason</strong><br>
@@ -48,7 +48,7 @@
 
                             <hr>
                             <div class="d-flex align-items-start">
-                                <img src="img/avatars/avatar.jpg" width="36" height="36" class="rounded-circle me-2" alt="Charles Hall">
+                                <img src="" width="36" height="36" class="rounded-circle me-2" alt="Charles Hall">
                                 <div class="flex-grow-1">
                                     <small class="float-end text-navy">30m ago</small>
                                     <strong>Charles Hall</strong> posted something on <strong>Christina Mason</strong>'s timeline<br>
@@ -64,7 +64,7 @@
 
                             <hr>
                             <div class="d-flex align-items-start">
-                                <img src="img/avatars/avatar.jpg" width="36" height="36" class="rounded-circle me-2" alt="Charles Hall">
+                                <img src="" width="36" height="36" class="rounded-circle me-2" alt="Charles Hall">
                                 <div class="flex-grow-1">
                                     <small class="float-end text-navy">1d ago</small>
                                     <strong>Charles Hall</strong> started following <strong>Christina Mason</strong><br>

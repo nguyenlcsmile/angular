@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
@@ -9,7 +9,7 @@ import { retry, catchError } from 'rxjs/operators';
 
 export class RestApiService {
     // Define API
-    apiURL = 'http://localhost:3000';
+    apiURL = 'https://rruojohr2e.execute-api.ap-southeast-1.amazonaws.com/Prod';
     constructor(private http: HttpClient) { }
     /*========================================
       CRUD Methods for consuming RESTful API
@@ -17,13 +17,45 @@ export class RestApiService {
     // Http Options
     httpOptions = {
         headers: new HttpHeaders({
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json'
         }),
     };
     // HttpClient API get() method => Fetch employees list
-    getEmployees() {
-        return this.http.get(this.apiURL + '/employees').pipe(retry(1), catchError(this.handleError));
+    getAllItems(nameTable) {
+        let searchParams = new HttpParams();
+        searchParams = searchParams.append('table', nameTable);
+        return this.http.get(
+            this.apiURL + '/getAllItems',
+            {
+                headers: this.httpOptions.headers,
+                params: searchParams,
+            }
+        ).pipe(retry(1), catchError(this.handleError));
     }
+
+    getItem(nameTable, itemId) {
+        let searchParams = new HttpParams();
+        searchParams = searchParams.append('table', nameTable);
+        searchParams = searchParams.append('itemId', itemId);
+        return this.http.get(
+            this.apiURL + '/getItem',
+            {
+                headers: this.httpOptions.headers,
+                params: searchParams,
+            }
+        ).pipe(retry(1), catchError(this.handleError));
+    }
+
+    updateItem(nameTable, item) {
+        let searchParams = new HttpParams();
+        searchParams = searchParams.append('table', nameTable);
+        return this.http.put(
+            this.apiURL + '/updateItem/' + item.id,
+            JSON.stringify(item),
+            this.httpOptions 
+        ).pipe(retry(1), catchError(this.handleError));
+    }
+
 
     // Error handling
     handleError(error: any) {

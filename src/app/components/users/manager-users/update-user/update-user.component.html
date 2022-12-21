@@ -8,26 +8,28 @@
             <form class="row g-3">
                 <div class="col-md-6">
                     <label for="inputUsername4" class="form-label">Username <span style="color: red;">(*)</span></label>
-                    <input type="text" class="form-control" id="inputUsername4" name="username" [(ngModel)]="user.username">
+                    <input type="text" class="form-control" id="inputUsername4" name="username" [(ngModel)]="user.username.S">
                 </div>
                 <div class="col-md-6">
                     <label for="inputEmail4" class="form-label">Email <span style="color: red;">(*)</span></label>
-                    <input type="email" class="form-control" id="inputEmail4" name="email" [(ngModel)]="user.email">
+                    <input type="email" class="form-control" id="inputEmail4" name="email" [(ngModel)]="user.email.S">
                 </div>
                 <div class="col-md-6">
                     <label for="inputCountry" class="form-label">Country <span style="color: red;">(*)</span></label>
-                    <input type="text" class="form-control" id="inputCountry" name="country" [(ngModel)]="user.country">
+                    <input type="text" class="form-control" id="inputCountry" name="country" [(ngModel)]="user.country.S">
                 </div>
                 <div class="col-md-6">
                     <label for="inputGender" class="form-label">Gender <span style="color: red;">(*)</span></label>
-                    <select id="inputGender" class="form-select" name="gender" [(ngModel)]="user.gender">
-                        <option selected>Male</option>
+                    <select id="inputGender" class="form-select" name="gender" [(ngModel)]="user.gender.S">
+                        <option>Male</option>
                         <option>Female</option>
+                        <option>Genderfluid</option>
+                        <option>Agender</option>
                     </select>
                 </div>
                 <div class="col-md-12">
                     <label for="inputPhone" class="form-label">Phone <span style="color: red;">(*)</span></label>
-                    <input type="text" class="form-control" id="inputPhone" name="phone" [(ngModel)]="user.phone">
+                    <input type="text" class="form-control" id="inputPhone" name="phone" [(ngModel)]="user.phone.S">
                 </div>
                 <div class="col-12">
                     <div class="card">
