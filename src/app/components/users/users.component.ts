@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ViewUserComponent } from './manager-users/view-user/view-user.component';
 import { UpdateUserComponent } from './manager-users/update-user/update-user.component';
-import { Store, State  } from '@ngrx/store';
+import { Store, State } from '@ngrx/store';
 import { getUser } from 'src/app/ngrx/user.actions';
 import { Observable } from 'rxjs';
 import { RestApiService } from 'src/app/shared/rest-api.service';
@@ -23,21 +23,23 @@ export class UsersComponent implements OnInit {
     currnetPage = 1;
 
     constructor(
-        config: NgbModalConfig, 
+        config: NgbModalConfig,
         private modalService: NgbModal,
         private store: Store<{ user: any }>,
         private state: State<{}>,
         public restApi: RestApiService
     ) { }
 
-    ngOnInit(): void {}
-    
+    ngOnInit(): void { }
+
     ngAfterViewInit() {
-        this.restApi.getAllItems('my-table').subscribe(res => {
+        this.getAllUsers();
+    }
+
+    async getAllUsers() {
+        await this.restApi.getAllItems('my-table').subscribe(res => {
             this.users = res['data'];
         });
-        // let user = this.getUserLogin();
-        // console.log(user);
     }
 
     showModalView(user) {
@@ -46,6 +48,13 @@ export class UsersComponent implements OnInit {
 
     showModalUpdate(user) {
         this.updateUser.showModal(user);
+    }
+
+    resetListUsers($event) {
+        let message = $event;
+        if (message.statusCode === 200) {
+            this.getAllUsers();
+        }
     }
 
     handlePanginate(event) {

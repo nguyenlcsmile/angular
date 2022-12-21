@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, ElementRef, Output, EventEmitter } from '@angular/core';
 import { DomSanitizer } from "@angular/platform-browser";
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RestApiService } from 'src/app/shared/rest-api.service';
+import _ from 'lodash';
 
 @Component({
     selector: 'app-update-user',
@@ -12,8 +13,35 @@ import { RestApiService } from 'src/app/shared/rest-api.service';
 
 export class UpdateUserComponent implements OnInit {
     previewImage = null;
-    user: {};
+    modalCurrent = null;
+    userUpdate = {
+        id: {
+            S: ''
+        },
+        country: {
+            S: ''
+        },
+        email: {
+            S: ''
+        },
+        gender: {
+            S: ''
+        },
+        phone: {
+            S: ''
+        },
+        username: {
+            S: ''
+        },
+        imagebase64: {
+            S: ''
+        },
+        urlImage: {
+            S: ''
+        }
+    }
 
+    @Output() messageEvent = new EventEmitter<any>();
     @ViewChild('template') template!: ElementRef;
 
     constructor(
@@ -26,14 +54,17 @@ export class UpdateUserComponent implements OnInit {
     ngOnInit(): void { }
 
     showModal(user) {
-        this.user = user;
-        this.previewImage = `data:image/jpeg;base64,${user.imagebase64.S}`;
-        return this.modalService.open(this.template, { size: 'xl', backdrop: 'static' });
+        this.userUpdate = _.cloneDeep(user);
+        this.previewImage = `data:image/jpeg;base64,${this.userUpdate.imagebase64.S}`;
+        this.modalCurrent = this.modalService.open(this.template, { size: 'xl', backdrop: 'static' });
     }
 
     resetUserUpdate() {
         this.previewImage = ''
-        this.user = {
+        this.userUpdate = {
+            id: {
+                S: ''
+            },
             country: {
                 S: ''
             },
@@ -47,6 +78,12 @@ export class UpdateUserComponent implements OnInit {
                 S: ''
             },
             username: {
+                S: ''
+            },
+            imagebase64: {
+                S: ''
+            },
+            urlImage: {
                 S: ''
             }
         }
@@ -65,7 +102,7 @@ export class UpdateUserComponent implements OnInit {
             let reader = this.getBase64(imageFile);
             reader.onload = () => {
                 let imageBase64 = String(reader.result).replace(/^data:image\/[a-z]+;base64,/, "");
-                this.user['imagebase64'].S = imageBase64;
+                this.userUpdate.imagebase64.S = imageBase64;
             };
             reader.onerror = (error) => {
                 console.log('Error: ', error);
@@ -73,9 +110,12 @@ export class UpdateUserComponent implements OnInit {
         }
     }
 
-    handleUpdateUser() {
-        // console.log(this.user);
-        this.resetUserUpdate();
+    async handleUpdateUser() {
+        await this.restApi.updateItem('my-table', this.userUpdate).subscribe(res => {
+            this.messageEvent.emit(res);
+            this.resetUserUpdate();
+            this.modalCurrent.close();
+        });
     }
 
 }

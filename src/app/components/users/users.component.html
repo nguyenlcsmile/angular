@@ -71,5 +71,5 @@
 <!-- <button (click)="getUserLogin()">Increment</button> -->
 
 <app-view-user></app-view-user>
-<app-update-user></app-update-user>
+<app-update-user (messageEvent)="resetListUsers($event)"></app-update-user>
 
