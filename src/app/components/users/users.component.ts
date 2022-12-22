@@ -6,6 +6,8 @@ import { Store, State  } from '@ngrx/store';
 import { getUser } from 'src/app/ngrx/user.actions';
 import { Observable } from 'rxjs';
 import { RestApiService } from 'src/app/shared/rest-api.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-users',
@@ -27,17 +29,21 @@ export class UsersComponent implements OnInit {
         private modalService: NgbModal,
         private store: Store<{ user: any }>,
         private state: State<{}>,
-        public restApi: RestApiService
+        public restApi: RestApiService,
+        private route: ActivatedRoute,
+        private router: Router
     ) { }
 
     ngOnInit(): void {}
     
     ngAfterViewInit() {
-        this.restApi.getAllItems('my-table').subscribe(res => {
+        this.getAllUsers();
+    }
+
+    async getAllUsers() {
+        await this.restApi.getAllItems('my-table').subscribe(res => {
             this.users = res['data'];
         });
-        // let user = this.getUserLogin();
-        // console.log(user);
     }
 
     showModalView(user) {
@@ -45,7 +51,15 @@ export class UsersComponent implements OnInit {
     }
 
     showModalUpdate(user) {
-        this.updateUser.showModal(user);
+        // this.router.navigate(['users', user.id.S]);
+        this.updateUser.showModal(_.cloneDeep(user));
+    }
+
+    resetListUsers($event) {
+        let message = $event;
+        if (message.statusCode === 200) {
+            this.getAllUsers();
+        }
     }
 
     handlePanginate(event) {

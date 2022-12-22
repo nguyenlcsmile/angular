@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild, Input, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { DomSanitizer } from "@angular/platform-browser";
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RestApiService } from 'src/app/shared/rest-api.service';
+import { UsersComponent } from '../../users.component';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-update-user',
@@ -11,43 +13,85 @@ import { RestApiService } from 'src/app/shared/rest-api.service';
 })
 
 export class UpdateUserComponent implements OnInit {
-    previewImage = null;
-    user: {};
-
     @ViewChild('template') template!: ElementRef;
+    @ViewChild(UsersComponent) userComponent!: UsersComponent;
+    @Output() messageEvent = new EventEmitter<any>();
+
+    previewImage = null;
+    modalReference = null;
+    image = '';
+    user = {
+        id: {
+            S: ""
+        },
+        country: {
+            S: ""
+        },
+        email: {
+            S: ""
+        },
+        gender: {
+            S: ""
+        },
+        phone: {
+            S: ""
+        },
+        username: {
+            S: ""
+        },
+        imagebase64: {
+            S: ""
+        },
+        urlImage: {
+            S: ""
+        }
+    }
 
     constructor(
         config: NgbModalConfig,
         private modalService: NgbModal,
         private sanitizer: DomSanitizer,
-        public restApi: RestApiService
-    ) { }
+        public restApi: RestApiService,
+    ) {}
 
     ngOnInit(): void { }
+    
+    ngAfterViewInit() {
+        console.log(this.userComponent);
+    }
 
     showModal(user) {
-        this.user = user;
-        this.previewImage = `data:image/jpeg;base64,${user.imagebase64.S}`;
-        return this.modalService.open(this.template, { size: 'xl', backdrop: 'static' });
+        this.user = {...user};
+        this.previewImage = `data:image/jpeg;base64,${this.user.imagebase64.S}`;
+        this.modalReference = this.modalService.open(this.template, { size: 'xl', backdrop: 'static' });
     }
 
     resetUserUpdate() {
-        this.previewImage = ''
+        this.previewImage = '';
         this.user = {
+            id: {
+                S: ""
+            },
             country: {
-                S: ''
+                S: ""
             },
             email: {
-                S: ''
+                S: ""
             },
             gender: {
-                S: ''
+                S: ""
             },
             phone: {
-                S: ''
+                S: ""
             },
             username: {
-                S: ''
+                S: ""
+            },
+            imagebase64: {
+                S: ""
+            },
+            urlImage: {
+                S: ""
             }
         }
     }
@@ -64,18 +108,21 @@ export class UpdateUserComponent implements OnInit {
             let imageFile = event.target.files[0];
             let reader = this.getBase64(imageFile);
             reader.onload = () => {
-                let imageBase64 = String(reader.result).replace(/^data:image\/[a-z]+;base64,/, "");
-                this.user['imagebase64'].S = imageBase64;
-            };
+                // this.user.imagebase64.S = String(reader.result).replace(/^data:image\/[a-z]+;base64,/, "");
+                this.user.imagebase64.S = String(reader.result).replace(/^data:image\/[a-z]+;base64,/, "");
+            };  
             reader.onerror = (error) => {
                 console.log('Error: ', error);
             };
         }
     }
 
-    handleUpdateUser() {
-        // console.log(this.user);
-        this.resetUserUpdate();
+    async handleUpdateUser() {
+        await this.restApi.updateItem('my-table', this.user).subscribe(res => {
+            this.messageEvent.emit(res);
+            this.resetUserUpdate();
+            this.modalReference.close();
+        });
     }
 
 }

@@ -50,9 +50,12 @@ export class RestApiService {
         let searchParams = new HttpParams();
         searchParams = searchParams.append('table', nameTable);
         return this.http.put(
-            this.apiURL + '/updateItem/' + item.id,
-            JSON.stringify(item),
-            this.httpOptions 
+            this.apiURL + '/updateItem',
+            item,
+            {
+                headers: this.httpOptions.headers,
+                params: searchParams,
+            }
         ).pipe(retry(1), catchError(this.handleError));
     }
 
